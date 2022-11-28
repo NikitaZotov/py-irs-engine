@@ -13,6 +13,5 @@ class Command(ABC):
 
 class GetDocumentsLangsCommand(Command):
     def complete(self, payload: any) -> any:
-        documents = json.loads(payload)
-        langs = engine.get_documents_langs(*documents)
+        langs = engine.get_documents_langs(*payload)
         return langs

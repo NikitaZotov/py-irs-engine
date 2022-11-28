@@ -1,16 +1,19 @@
 from websocket_server import WebsocketServer
-from .message_handler import MessageHandler
+from src.server.message_handler import MessageHandler
 
 
 class IrsServer(WebsocketServer):
-    def __call__(self, *args, **kwargs):
-        super.__call__(*args, *kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._handler = MessageHandler()
         self._initialize()
 
     def _initialize(self):
-        self.set_fn_message_received(self._on_message)
+        self.set_fn_message_received(self._build_on_message())
 
-    def _on_message(self, client, message):
-        answer = self._handler.handle(message)
-        self.send_message(client, answer)
+    def _build_on_message(self):
+        def _on_message(client, server, message):
+            answer = self._handler.handle(message)
+            server.send_message(client, answer)
+
+        return _on_message

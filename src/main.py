@@ -2,7 +2,7 @@ import logging
 
 import argparse
 
-from server.server import IrsServer
+from src.server.server import IrsServer
 
 IRS_SERVER_HOST = 'host'
 IRS_SERVER_PORT = 'port'
