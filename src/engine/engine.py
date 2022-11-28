@@ -2,6 +2,7 @@ from typing import List
 
 import cld3 as nlp
 
+from transformers import pipeline
 
 _lang_keys = {
     "en": "English",
@@ -17,3 +18,15 @@ def get_documents_langs(*documents: str) -> List[str]:
         langs.append(lang)
 
     return langs
+
+
+def get_documents_summarizations(*documents: str) -> List[str]:
+    summarizations = []
+    summarizer = pipeline("summarization")
+
+    for document in documents:
+        summar = summarizer(document, min_length=75, max_length=300)
+        summarizations.append(summar)
+
+    return summarizations
+

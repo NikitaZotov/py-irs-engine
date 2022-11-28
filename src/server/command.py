@@ -15,3 +15,9 @@ class GetDocumentsLangsCommand(Command):
     def complete(self, payload: any) -> any:
         langs = engine.get_documents_langs(*payload)
         return langs
+
+
+class GetDocumentsSummarizationsCommand(Command):
+    def complete(self, payload: any) -> any:
+        summarizations = engine.get_documents_summarizations(*payload)
+        return summarizations

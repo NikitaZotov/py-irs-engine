@@ -1,12 +1,13 @@
 import json
 
-from .command import GetDocumentsLangsCommand
+from .command import GetDocumentsLangsCommand, GetDocumentsSummarizationsCommand
 
 
 class MessageHandler:
     def __init__(self):
         self._commands = {
             "get_langs": GetDocumentsLangsCommand,
+            "get_summars": GetDocumentsSummarizationsCommand,
         }
 
     def handle(self, message: str) -> str:
