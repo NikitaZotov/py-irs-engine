@@ -4,6 +4,8 @@ import cld3 as nlp
 
 from transformers import pipeline
 
+summarizer = pipeline("summarization")
+
 _lang_keys = {
     "en": "English",
     "fr": "French",
@@ -22,11 +24,10 @@ def get_documents_langs(*documents: str) -> List[str]:
 
 def get_documents_summarizations(*documents: str) -> List[str]:
     summarizations = []
-    summarizer = pipeline("summarization")
 
     for document in documents:
         summar = summarizer(document, min_length=75, max_length=300)
-        summarizations.append(summar)
+        summarizations.append(summar[0]["summary_text"])
 
     return summarizations
 
