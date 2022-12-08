@@ -4,12 +4,22 @@ import cld3 as nlp
 
 from transformers import pipeline
 
+from googletrans import Translator
+
 summarizer = pipeline("summarization")
+translator = Translator()
 
 _lang_keys = {
     "en": "English",
     "fr": "French",
     "it": "Italian",
+}
+
+_key_langs = {
+    "English": "en",
+    "French": "fr",
+    "Italian": "it",
+    "Germany": "de",
 }
 
 
@@ -31,3 +41,12 @@ def get_documents_summarizations(*documents: str) -> List[str]:
 
     return summarizations
 
+
+def get_documents_translations(documents: str, language: str) -> List[str]:
+    translations = []
+
+    for document in documents:
+        trans = translator.translate(text=document, dest=_key_langs[language])
+        translations.append(trans.text)
+
+    return translations

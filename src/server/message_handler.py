@@ -1,6 +1,6 @@
 import json
 
-from .command import GetDocumentsLangsCommand, GetDocumentsSummarizationsCommand
+from .command import GetDocumentsLangsCommand, GetDocumentsSummarizationsCommand, GetDocumentsTranslationsCommand
 
 
 class MessageHandler:
@@ -8,6 +8,7 @@ class MessageHandler:
         self._commands = {
             "get_langs": GetDocumentsLangsCommand,
             "get_summars": GetDocumentsSummarizationsCommand,
+            "get_translations": GetDocumentsTranslationsCommand,
         }
 
     def handle(self, message: str) -> str:
