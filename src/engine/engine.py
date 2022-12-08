@@ -1,4 +1,6 @@
-from typing import List
+import re
+import string
+from typing import List, Dict
 
 import cld3 as nlp
 
@@ -50,3 +52,29 @@ def get_documents_translations(documents: str, language: str) -> List[str]:
         translations.append(trans.text)
 
     return translations
+
+
+def get_documents_frequent_words(documents: str, language: str) -> List[Dict[str, str]]:
+    def _define_frequent_words_and_translations(document: str) -> Dict[str, str]:
+        frequent_words_dict = {}
+        words = re.sub('[' + string.punctuation + ']', '', document).split()
+
+        for word in words:
+            frequent_words_dict[word] = frequent_words_dict.get(word, 0) + 1
+        sorted_words = sorted(frequent_words_dict, key=lambda k: frequent_words_dict[k], reverse=True)
+
+        result_dict = {}
+        max_length = 50
+        for fr_word in sorted_words[:max_length]:
+            trans = translator.translate(text=fr_word, dest=_key_langs[language])
+            result_dict[fr_word] = trans.text
+
+        return result_dict
+
+    result = []
+
+    for doc in documents:
+        result_dict = _define_frequent_words_and_translations(doc)
+        result.append(result_dict)
+
+    return result

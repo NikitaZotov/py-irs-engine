@@ -27,3 +27,9 @@ class GetDocumentsTranslationsCommand(Command):
     def complete(self, payload: any) -> any:
         translations = engine.get_documents_translations(payload["documents"], payload["lang"])
         return translations
+
+
+class GetDocumentsFrequentWords(Command):
+    def complete(self, payload: any) -> any:
+        translations = engine.get_documents_frequent_words(payload["documents"], payload["lang"])
+        return translations
